@@ -33,7 +33,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
           <div>
             <h6 className="font-semibold mb-2">Decoded</h6>
-            <div className="w-full border p-5 rounded-md min-h-40">
+            <div className="w-full border p-5 rounded-md min-h-40 break-words">
               {decoded}
             </div>
           </div>
