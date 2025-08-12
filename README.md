@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Custom Tokenizer
 
-## Getting Started
+![Custom Tokenizer Demo](/public/custom-tokenizer.png)
 
-First, run the development server:
+## What is a Token?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+In the context of **Generative AI**, a **token** is a small chunk of text that the model reads or writes at a time.
+
+Different AI models break text into tokens in different ways — sometimes by words, sometimes by subwords, or even by characters. Tokens are essentially the **encoded representation** of text that the model processes.
+
+**Example:**
+
+Sentence:
+
+```text
+Taj Mahal is a part of Seven wonders of the world
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+When converted into tokens (example token IDs):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+[51, 1255, 162826, 382, 261, 997, 328, 49382, 6391, 328, 2375]
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## What is Tokenization?
 
-## Learn More
+**Tokenization** is the process of converting text into tokens using a specific method or tokenizer.
+This step is essential before text can be processed by an AI model.
 
-To learn more about Next.js, take a look at the following resources:
+## Context: Changes in `src/app/page.tsx`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- The file serves as the main page component for the Next.js app.
+- It imports and uses the `InputForm` component from `src/components/input-form.tsx`.
+- The page layout includes a header, main content area, and footer.
+- The main content area displays a title, description, and the `InputForm` for user interaction.
+- Styling is applied using Tailwind CSS classes.
+- The page is structured to provide a clean UI for interacting with the custom tokenizer functionality.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## How to Run This Repo Locally
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   pnpm install
+   ```
+
+2. **Start the development server:**
+
+   ```bash
+   pnpm dev
+   ```
+
+3. **Open your browser:**
+   Visit [http://localhost:3000](http://localhost:3000) to view the app.
+
+---
