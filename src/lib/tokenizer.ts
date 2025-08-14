@@ -14,7 +14,3 @@ export function decode(tokens: number[]) {
 export function countTokens(text: string) {
   return encode(text).length;
 }
-
-export function getTokens(text: string) {
-  return encode(text);
-}

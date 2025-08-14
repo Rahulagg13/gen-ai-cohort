@@ -1,19 +1,47 @@
 "use client";
 import { useEffect, useState } from "react";
 import { decode, encode } from "@/lib/tokenizer";
+import { get } from "http";
+import { cn } from "@/lib/utils";
+
+const COLORS = [
+  "bg-sky-200",
+  "bg-amber-200",
+  "bg-blue-200",
+  "bg-green-200",
+  "bg-orange-200",
+  "bg-cyan-200",
+  "bg-gray-200",
+  "bg-purple-200",
+  "bg-indigo-200",
+  "bg-lime-200",
+  "bg-rose-200",
+  "bg-violet-200",
+  "bg-yellow-200",
+  "bg-emerald-200",
+  "bg-zinc-200",
+  "bg-red-200",
+  "bg-fuchsia-200",
+  "bg-pink-200",
+  "bg-teal-200",
+];
 
 export default function Home() {
   const [token, setToken] = useState("");
   const [mount, setMount] = useState(false);
+  const [indexHover, setIndexHover] = useState<null | number>(null);
+
   const encoded = encode(token);
   const decoded = decode(encoded);
   useEffect(() => {
     setMount(true);
   }, []);
+
   if (!mount)
     return (
       <div className="min-h-screen flex justify-center items-center"></div>
     );
+
   return (
     <div className="flex justify-center items-center py-20 min-h-[calc(100vh-8.5rem)] container mx-auto max-w-7xl">
       <div className="flex flex-col gap-10 items-center w-full px-10">
@@ -34,7 +62,25 @@ export default function Home() {
           <div>
             <h6 className="font-semibold mb-2">Decoded</h6>
             <div className="w-full border p-5 rounded-md min-h-40 break-words">
-              {decoded}
+              {encoded.map((text, index) => {
+                let tokenText = decode([text]);
+                if (/^\s+$/.test(tokenText)) {
+                  tokenText = tokenText.replace(/ /g, "[space]");
+                }
+
+                return (
+                  <span
+                    key={index}
+                    onMouseEnter={() => setIndexHover(index)}
+                    onMouseLeave={() => setIndexHover(null)}
+                    className={cn(" px-2 py-1 inline-block rounded-md", {
+                      [COLORS[index % COLORS.length]]: indexHover === index,
+                    })}
+                  >
+                    {tokenText}
+                  </span>
+                );
+              })}
             </div>
           </div>
           <div>
@@ -50,9 +96,18 @@ export default function Home() {
               )}
             </div>
             <div className="w-full border p-5 rounded-md min-h-40">
-              {encoded.toString()
-                ? `[${encoded.toString().split(",").join(", ")}]`
-                : ""}
+              {encoded.map((text, index) => (
+                <span
+                  key={index}
+                  onMouseEnter={() => setIndexHover(index)}
+                  onMouseLeave={() => setIndexHover(null)}
+                  className={cn(" px-2 py-1 inline-block rounded-md", {
+                    [COLORS[index % COLORS.length]]: indexHover === index,
+                  })}
+                >
+                  {text}
+                </span>
+              ))}
             </div>
           </div>
         </div>
