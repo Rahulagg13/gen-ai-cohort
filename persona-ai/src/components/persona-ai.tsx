@@ -9,7 +9,7 @@ const PersonaAI = () => {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex justify-center flex-col xl:flex-row gap-4 items-center w-full h-full">
       <PersonComponent
         setSelectedPerson={setSelectedPerson}
         selectedPerson={selectedPerson}

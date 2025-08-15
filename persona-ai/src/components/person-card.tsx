@@ -31,9 +31,9 @@ const PersonCard = ({
   return (
     <Card
       className={cn(
-        "overflow-hidden cursor-pointer border-2 border-orange-200 hover:ring hover:ring-orange-400 hover:ring-offset-2 w-full",
+        "overflow-hidden cursor-pointer border-2 border-orange-600 hover:ring-2 hover:ring-orange-400 hover:ring-offset-2 w-full max-w-lg",
         {
-          "bg-gradient-to-r from-orange-200 to-orange-100 border border-orange-500 hover:ring-0 scale-[1.01] transition-scale duration-300 ease-in-out hover:ring-offset-0":
+          "border border-orange-600 hover:ring-0 scale-[1.01] bg-orange-200 transition-scale duration-300 ease-in-out hover:ring-offset-0":
             isSelected,
           " scale-[0.95] transition-scale duration-300 ease-in-out":
             !isSelected,
@@ -43,23 +43,23 @@ const PersonCard = ({
     >
       <CardHeader className="whitespace-nowrap">
         <CardTitle className="flex justify-start items-center gap-4">
-          <Avatar className="w-12 h-12">
+          <Avatar className="w-10 h-10">
             <AvatarImage src={person.profileImage} alt={person.name} />
             <AvatarFallback>
               {person.name.split(" ")[0].charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <span className="text-2xl font-semibold">{person.name}</span>
+          <span className="text-xl font-semibold text-shadow-sm">
+            {person.name}
+          </span>
         </CardTitle>
         <CardDescription
-          className={cn(" text-lg mt-2", {
-            "text-orange-600 font-bold": isSelected,
-          })}
+          className={cn(" text-base mt-1 text-neutral-600 font-medium")}
         >
           {person.role}
         </CardDescription>
       </CardHeader>
-      {/* <CardContent className="flex flex-col  items-start gap-1">
+      <CardContent className="flex flex-col  items-start gap-1">
         <h6 className="text-sm font-semibold">Social Links</h6>
         <div className="flex flex-wrap">
           <AnimatePresence mode="popLayout">
@@ -72,13 +72,24 @@ const PersonCard = ({
                   target="_blank"
                   rel="noreferrer"
                   key={`${media.name}-${index}`}
-                  className="px-4 py-3 rounded-full bg-neutral-50 border flex justify-center items-center gap-2 -mr-4 whitespace-nowrap overflow-hidden"
+                  className="p-2 rounded-full bg-neutral-50 border flex justify-center items-center gap-2 -mr-2 whitespace-nowrap overflow-hidden"
                   onMouseEnter={() => setHoveredItem(`${media.name}${index}`)}
                   onMouseLeave={() => setHoveredItem(null)}
                 >
-                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0" />
                   {isHovered && (
-                    <motion.span className="text-xs font-bold overflow-hidden">
+                    <motion.span
+                      initial={{ width: 50 }}
+                      animate={{
+                        width: isHovered ? "auto" : 50,
+                      }}
+                      exit={{ width: 50 }}
+                      transition={{
+                        duration: 0.4,
+                        ease: [0.86, 0, 0.07, 1],
+                      }}
+                      className="text-xs font-bold overflow-hidden"
+                    >
                       @{media.name}
                     </motion.span>
                   )}
@@ -87,7 +98,7 @@ const PersonCard = ({
             })}
           </AnimatePresence>
         </div>
-      </CardContent> */}
+      </CardContent>
     </Card>
   );
 };

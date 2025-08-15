@@ -1,8 +1,6 @@
-"use client";
-
 import PersonCard from "@/components/person-card";
 import { Person, Persons } from "@/lib/person-data";
-import { useState } from "react";
+import MyCard from "./my-card";
 
 const PersonComponent = ({
   setSelectedPerson,
@@ -15,7 +13,7 @@ const PersonComponent = ({
     setSelectedPerson(person);
   };
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center flex-row xl:flex-col gap-4 flex-1 items-center w-full xl:w-auto h-full">
       {Persons.map((person) => (
         <PersonCard
           person={person}
@@ -24,6 +22,8 @@ const PersonComponent = ({
           onClick={() => handleSelectPerson(person)}
         />
       ))}
+      <div className="flex-1" />
+      <MyCard />
     </div>
   );
 };

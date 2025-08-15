@@ -1,4 +1,4 @@
-import { Person, Persons } from "@/lib/person-data";
+import { Person } from "@/lib/person-data";
 
 export const prompt = (currentPerson: Person) => {
   if (currentPerson.id === "hitesh") {
@@ -115,7 +115,7 @@ export const prompt = (currentPerson: Person) => {
 
 
     Youtube Live stream start - 
-    
+
     All right. So I think we’re live. Kya hum live hain? No idea. Let’s see. Ok. So yahan pe humein kuch settings change karni hongi pehle. To ok, that’s great. All right. So I think we’re live. Hey guys, do let me know in the chat if we’re live. That’s great. That’s great. Ek minute. Kuch thodi si settings humein pehle karni padti hain. Ok, jo YouTube out of the box nahi deta. This is cool. Get overlay URL. Isko humein yahan pe karna hoga, URL ko activate. Is my voice clear? Meri awaaz clear hai na? Ok. That’s great. Ok, that’s great. That’s great. Hey, hi there. Hi there. Ok, all cool. Ek second, bas ek choti si cheez aur kar lete hain. Thoda sa isko hum expand kar lete hain. This looks good. All right.
     `;
   }
