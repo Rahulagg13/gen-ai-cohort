@@ -2,8 +2,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import Icons from "./icons";
+import { SocialMedia } from "@/lib/person-data";
 
-export const mySocialLink = [
+export const mySocialLink: SocialMedia[] = [
   {
     name: "rahul-aggarwal-227531198",
     url: "https://www.linkedin.com/in/rahul-aggarwal-227531198/",
@@ -34,7 +35,6 @@ const MyCard = () => {
         <h6 className="text-sm font-semibold">Social Links</h6>
         <div className="flex flex-wrap w-full gap-2">
           {mySocialLink.map((media, index) => {
-            //@ts-ignore
             const Icon = Icons[media.icon];
             return (
               <Link

@@ -13,7 +13,6 @@ export default function Home() {
           </h1>
           <div className="xl:hidden flex flex-wrap  gap-2 ">
             {mySocialLink.map((media, index) => {
-              //@ts-ignore
               const Icon = Icons[media.icon];
               return (
                 <Link
