@@ -10,13 +10,12 @@ import { Person } from "@/lib/person-data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { cn } from "@/lib/utils";
 import MDXMessage from "./mdx-message";
 import { Send } from "lucide-react";
-import { toast } from "sonner";
 
 const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
   const [messages, setMessages] = useState<
@@ -26,6 +25,11 @@ const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
     }[]
   >([]);
   const [message, setMessage] = useState<string>("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     setMessages([]);
@@ -46,12 +50,17 @@ const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
       return data;
     },
     onError: (err) => {
-      toast.error("Something went wrong. Please try again.");
+      console.log(err);
     },
     onSuccess: (data) => {
+      console.log(data);
       setMessages([...messages, data]);
     },
   });
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isPending]);
 
   const handleSendMessage = () => {
     if (!currentPerson || !message) return;
@@ -102,8 +111,10 @@ const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
     );
   }
 
+  console.log(messages);
+
   return (
-    <Card className="w-full flex flex-col p-0 max-w-4xl h-full min-h-[600px] border-2 border-orange-300 shadow-2xl shadow-orange-500/20 bg-white overflow-hidden">
+    <Card className="w-full flex flex-col p-0 gap-0 max-w-4xl h-full min-h-[600px] max-h-[calc(100vh-2rem)] border-2 border-orange-300 shadow-2xl shadow-orange-500/20 bg-white overflow-hidden">
       <CardHeader className="whitespace-nowrap px-6 py-4 bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500/80 text-white shadow-lg flex justify-between items-center flex-shrink-0">
         <CardTitle className="relative flex justify-start items-start gap-4">
           <div className="relative">
@@ -127,7 +138,7 @@ const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 overflow-y-auto min-h-0 pt-4 px-6 bg-gradient-to-br from-orange-50/30 via-white to-orange-50/50 space-y-6">
+      <CardContent className="flex-1 overflow-y-auto overflow-x-hidden pt-8 px-6 bg-gradient-to-br from-orange-50/30 via-white to-orange-50/50 space-y-6 h-0 scrollbar-hide">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -181,6 +192,7 @@ const ChatBox = ({ currentPerson }: { currentPerson: Person | null }) => {
         ))}
 
         {isPending && <TypingIndicator />}
+        <div ref={messagesEndRef} />
       </CardContent>
       <CardFooter className="whitespace-nowrap px-4 py-2 rounded-br-md rounded-bl-md flex justify-between gap-3 flex-shrink-0">
         <Input
