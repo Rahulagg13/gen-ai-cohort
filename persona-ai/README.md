@@ -2,8 +2,8 @@
 
 ## Screenshot
 
-![Persona AI](/screenshot1.png)
-![Persona AI](/screenshot2.png)
+![Persona AI](./screenshot1.png)
+![Persona AI](./screenshot2.png)
 
 A Next.js 15 + Tailwind app where users chat with AI personas modeled after **Hitesh Choudhary** and **Piyush Garg**. Messages are rendered via **MDX** (including code blocks), so answers look clean and developer‑friendly.
 
@@ -48,8 +48,8 @@ pnpm -v
 Replace the placeholder URL with your repository.
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/Rahulagg13/gen-ai-cohort.git
+cd persona ai
 ```
 
 > If your default branch is not checked out automatically, do:
