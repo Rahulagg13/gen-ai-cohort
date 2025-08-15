@@ -1,23 +1,28 @@
 # Persona AI Bot – Hitesh Sir & Piyush Sir
 
+## Screenshot
+
+![Persona AI](/screenshot1.png)
+![Persona AI](/screenshot2.png)
+
 A Next.js 15 + Tailwind app where users chat with AI personas modeled after **Hitesh Choudhary** and **Piyush Garg**. Messages are rendered via **MDX** (including code blocks), so answers look clean and developer‑friendly.
 
 ---
 
 ## Features
 
-* Persona-based replies (Hitesh Sir / Piyush Sir)
-* MDX rendering with fenced code blocks
-* Tailwind Typography for readable content
-* No DB required for basics (state-only), can be extended later
+- Persona-based replies (Hitesh Sir / Piyush Sir)
+- MDX rendering with fenced code blocks
+- Tailwind Typography for readable content
+- No DB required for basics (state-only), can be extended later
 
 ## Tech Stack
 
-* **Next.js 15** (App Router)
-* **TypeScript**
-* **Tailwind CSS** + `@tailwindcss/typography`
-* **next-mdx-remote** for MDX rendering
-* **Google Gemini** (or compatible LLM) for responses
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **Tailwind CSS** + `@tailwindcss/typography`
+- **next-mdx-remote** for MDX rendering
+- **Google Gemini** (or compatible LLM) for responses
 
 ---
 
@@ -25,9 +30,9 @@ A Next.js 15 + Tailwind app where users chat with AI personas modeled after **Hi
 
 ### 0) Prerequisites
 
-* **Node.js 20+** (LTS recommended)
-* **pnpm** (recommended) or npm/yarn
-* A **Gemini API key** (or your chosen LLM provider key)
+- **Node.js 20+** (LTS recommended)
+- **pnpm** (recommended) or npm/yarn
+- A **Gemini API key** (or your chosen LLM provider key)
 
 ```bash
 # install pnpm if you don't have it
