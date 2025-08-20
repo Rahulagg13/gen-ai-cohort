@@ -6,10 +6,7 @@ A modern chat application built with Next.js, React, and TypeScript, featuring P
 
 Watch a quick demo of Notebook LLM Chat App:
 
-<video width="640" height="360" controls>
-  <source src="./notebook llm video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Video Link](https://drive.google.com/file/d/1xqboisVfOVrbp1zVnNpQBu8TxyeaBBAu/view?usp=sharing)
 
 ## Features
 
