@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notebook LLM Chat App
+
+A modern chat application built with Next.js, React, and TypeScript, featuring PDF upload, context-aware LLM responses, and a beautiful UI.
+
+## Demo Video
+
+Watch a quick demo of Notebook LLM Chat App:
+
+<video width="640" height="360" controls>
+  <source src="./notebook llm video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+## Features
+
+- Chat with an AI assistant using context from uploaded PDF files or links
+- Upload PDF documents to provide context for your queries
+- Real-time chat interface with typing indicator and message history
+- Context-aware responses powered by LLMs (Gemini, etc.)
+- Modern, responsive UI built with custom components
+- Clear chat functionality
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- pnpm (or npm/yarn)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Docker Support
 
-To learn more about Next.js, take a look at the following resources:
+A `docker-compose.yml` is provided for running services locally.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+├── public/                # Static assets
+├── src/
+│   ├── app/               # Next.js app directory
+│   │   ├── api/           # API routes (response, upload-file, upload-link)
+│   │   └── ...
+│   ├── components/        # UI and chat components
+│   ├── context/           # Message context provider
+│   └── lib/               # Utility functions
+├── package.json           # Project metadata and scripts
+├── docker-compose.yml     # Docker configuration
+├── README.md              # Project documentation
+└── ...
+```
 
-## Deploy on Vercel
+## API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/api/response` — Handles chat responses from the LLM
+- `/api/upload-file` — Upload PDF files for context
+- `/api/upload-link` — Upload links for context
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+- @tanstack/react-query
+- Axios
+- Custom UI components
+
+## Contributing
+
+Pull requests and issues are welcome! Please open an issue to discuss major changes.
+
+## License
+
+MIT
+
+---
+
+Made with ❤️ by Rahul Aggarwal
