@@ -8,15 +8,15 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { FileMeta } from "./source";
+import { FileMeta, Source } from "./source";
 import { toast } from "sonner";
 
 const UploadFile = ({
   fileMeta,
   setFileMeta,
 }: {
-  fileMeta: FileMeta | null;
-  setFileMeta: React.Dispatch<React.SetStateAction<FileMeta | null>>;
+  fileMeta: Source | null;
+  setFileMeta: React.Dispatch<React.SetStateAction<Source | null>>;
 }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -74,8 +74,18 @@ const UploadFile = ({
         type: file.type,
         lastModified: file.lastModified,
       };
-      setFileMeta(metadata);
-      localStorage.setItem("uploadedFileMeta", JSON.stringify(metadata));
+      setFileMeta([metadata, ...(fileMeta ?? [])]);
+      let sourceFile: FileMeta[];
+      const uploadedFileMeta = localStorage.getItem("uploadedMeta");
+      if (uploadedFileMeta) {
+        sourceFile = JSON.parse(uploadedFileMeta);
+      } else {
+        sourceFile = [];
+      }
+
+      sourceFile = [metadata, ...sourceFile];
+
+      localStorage.setItem("uploadedMeta", JSON.stringify(sourceFile));
 
       uploadFile(file);
     }

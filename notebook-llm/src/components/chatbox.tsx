@@ -118,8 +118,10 @@ const ChatBox = () => {
           </div>
 
           <div className="flex flex-col text-neutral-950">
-            <p className="text-xl font-bold">Hitesh</p>
-            <p className=" text-sm font-medium">Hitesh • Online</p>
+            <p className="text-xl font-bold">
+              AI Assistent (Persona of Hitesh Sir)
+            </p>
+            <p className=" text-sm font-medium">Online</p>
           </div>
         </CardTitle>
         <Button onClick={clearMessages}>Clear Chat</Button>

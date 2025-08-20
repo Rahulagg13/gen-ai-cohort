@@ -18,11 +18,16 @@ import { motion, AnimatePresence } from "motion/react";
 import UploadLinks from "./upload-links";
 
 export type FileMeta = {
-  name: string;
+  name?: string;
   size: number;
   type: string;
   lastModified: number;
 };
+export type LinkMeta = {
+  link: string;
+};
+
+export type Source = (FileMeta | LinkMeta)[];
 
 export function ThinkingText() {
   return (
@@ -61,17 +66,17 @@ export function ThinkingText() {
 
 const Source = () => {
   const { messages } = useChat();
-  const [fileMeta, setFileMeta] = useState<FileMeta | null>(null);
+  const [sources, setSources] = useState<Source | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("uploadedFileMeta");
-    if (saved) setFileMeta(JSON.parse(saved));
+    const saved = localStorage.getItem("uploadedMeta");
+    if (saved) setSources(JSON.parse(saved));
   }, []);
 
   const removeLocalStorage = () => {
-    localStorage.removeItem("uploadedFileMeta");
-    setFileMeta(null);
+    localStorage.removeItem("uploadedMeta");
+    setSources(null);
   };
 
   const formatFileSize = (bytes: number) => {
@@ -106,7 +111,7 @@ const Source = () => {
         </div>
 
         <div className="flex justify-start items-center gap-3">
-          <UploadFile fileMeta={fileMeta} setFileMeta={setFileMeta} />
+          <UploadFile fileMeta={sources} setFileMeta={setSources} />
           <UploadLinks />
           {/* <motion.button
             whileHover={{ scale: 1.02 }}
@@ -121,35 +126,52 @@ const Source = () => {
         </div>
       </motion.div>
 
-      {/* <AnimatePresence>
-        {fileMeta && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="px-6 py-4 border-b border-gray-100/80 bg-gradient-to-r from-blue-50/30 to-purple-50/30"
-          >
-            <div className="flex items-center justify-between p-4 rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200/60 shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <h6 className="text-sm font-semibold text-gray-800 line-clamp-1 max-w-[200px]">
-                    {fileMeta.name}
-                  </h6>
-                  <div className="flex items-center gap-3 text-xs text-gray-500 mt-1">
-                    <span>Size: {formatFileSize(fileMeta.size)}</span>
-                    <span>•</span>
-                    <span>
-                      Type:{" "}
-                      {fileMeta.type.split("/")[1]?.toUpperCase() || "Unknown"}
-                    </span>
+      <AnimatePresence>
+        {sources &&
+          sources.length > 0 &&
+          sources.map((fileMeta, index) => (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              key={index}
+              className="px-6 py-2 border-b border-gray-100/80 bg-gradient-to-r from-blue-50/30 to-purple-50/30"
+            >
+              <div className="flex items-center justify-between p-4 rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200/60 shadow-sm">
+                {"link" in fileMeta ? (
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                      <Link className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h6 className="text-sm font-semibold text-gray-800 line-clamp-1 max-w-[200px]">
+                        {fileMeta.link}
+                      </h6>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h6 className="text-sm font-semibold text-gray-800 line-clamp-1 max-w-[200px]">
+                        {fileMeta.name}
+                      </h6>
+                      <div className="flex items-center gap-3 text-xs text-gray-500 mt-1">
+                        <span>Size: {formatFileSize(fileMeta.size)}</span>
+                        <span>•</span>
+                        <span>
+                          Type:{" "}
+                          {fileMeta.type.split("/")[1]?.toUpperCase() ||
+                            "Unknown"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {/* <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -158,11 +180,11 @@ const Source = () => {
                 >
                   <X className="w-4 h-4" />
                 </Button>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence> */}
+              </motion.div> */}
+              </div>
+            </motion.div>
+          ))}
+      </AnimatePresence>
 
       <div className="flex-1 overflow-hidden">
         <AnimatePresence>

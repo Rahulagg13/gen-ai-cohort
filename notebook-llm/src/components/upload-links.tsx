@@ -10,6 +10,7 @@ import { Link, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
+import { FileMeta, LinkMeta, Source } from "./source";
 
 const UploadLinks = () => {
   const [open, setOpen] = useState(false);
@@ -33,7 +34,16 @@ const UploadLinks = () => {
       toast.error(err.message);
     },
     onSuccess: (data) => {
-      console.log("Uploaded:", data);
+      toast.success(data.message);
+      const existingMeta = localStorage.getItem("uploadedMeta");
+      let source: Source = [];
+      if (existingMeta) {
+        source = JSON.parse(existingMeta);
+      }
+      localStorage.setItem(
+        "uploadedMeta",
+        JSON.stringify([{ link }, ...source])
+      );
       setOpen(false);
       setLink("");
       setError("");
