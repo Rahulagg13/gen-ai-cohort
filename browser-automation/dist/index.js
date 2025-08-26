@@ -41,11 +41,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const playwright_1 = require("playwright");
 const z = __importStar(require("zod"));
 const agents_1 = require("@openai/agents");
+const openai_1 = __importDefault(require("openai"));
+const openaiClient = new openai_1.default({
+    apiKey: process.env.GEMINI_API_KEY,
+    baseURL: process.env.BASE_URL,
+});
+// 2. Set up provider and defaults
+const modelProvider = new agents_1.OpenAIProvider({ openAIClient: openaiClient });
+(0, agents_1.setDefaultOpenAIClient)(openaiClient);
+(0, agents_1.setOpenAIAPI)("chat_completions"); // Gemini supports chat completions API
+(0, agents_1.setTracingDisabled)(true);
 // import { generateText } from "ai";
 // import { openai } from "@ai-sdk/openai";
 // import { google } from "@ai-sdk/google";
@@ -154,9 +167,10 @@ const main = (query) => __awaiter(void 0, void 0, void 0, function* () {
         - Be methodical: plan → execute → verify → continue
       `,
         tools: [openBrowser, openURL, scroll, takeScreenshot, closeBrowser],
-        model: "gpt-4o-mini",
+        model: "gemini-2.5-flash",
     });
-    const result = yield (0, agents_1.run)(websiteAutomationAgent, query);
+    const runner = new agents_1.Runner({ modelProvider });
+    const result = yield runner.run(websiteAutomationAgent, query);
     console.log(result);
 });
 main("open browser and search for https://ui.chaicode.com/ and go to login form in auth section");

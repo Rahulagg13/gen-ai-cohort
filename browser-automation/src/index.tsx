@@ -2,7 +2,28 @@ import "dotenv/config";
 import { chromium } from "playwright";
 import type { Page } from "playwright";
 import * as z from "zod";
-import { Agent, run, tool } from "@openai/agents";
+import {
+  Agent,
+  run,
+  tool,
+  OpenAIProvider,
+  setTracingDisabled,
+  setDefaultOpenAIClient,
+  setOpenAIAPI,
+  Runner,
+} from "@openai/agents";
+import OpenAI from "openai";
+
+const openaiClient = new OpenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+  baseURL: process.env.BASE_URL,
+});
+
+// 2. Set up provider and defaults
+const modelProvider = new OpenAIProvider({ openAIClient: openaiClient });
+setDefaultOpenAIClient(openaiClient);
+setOpenAIAPI("chat_completions"); // Gemini supports chat completions API
+setTracingDisabled(true);
 
 // import { generateText } from "ai";
 // import { openai } from "@ai-sdk/openai";
@@ -112,10 +133,11 @@ const main = async (query: string) => {
       `,
 
     tools: [openBrowser, openURL, scroll, takeScreenshot, closeBrowser],
-    model: "gpt-4o-mini",
+    model: "gemini-2.5-flash",
   });
 
-  const result = await run(websiteAutomationAgent, query);
+  const runner = new Runner({ modelProvider });
+  const result = await runner.run(websiteAutomationAgent, query);
   console.log(result);
 };
 main(

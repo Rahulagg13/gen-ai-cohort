@@ -26,6 +26,9 @@ importers:
       dotenv:
         specifier: ^17.2.1
         version: 17.2.1
+      openai:
+        specifier: ^5.15.0
+        version: 5.15.0(ws@8.18.3)(zod@3.25.76)
       playwright:
         specifier: ^1.55.0
         version: 1.55.0
