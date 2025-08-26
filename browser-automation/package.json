@@ -1,0 +1,29 @@
+{
+  "name": "browser-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^1.0.0",
+    "@ai-sdk/openai": "^1.3.24",
+    "@openai/agents": "^0.0.17",
+    "@openai/agents-extensions": "^0.0.17",
+    "ai": "^5.0.24",
+    "dotenv": "^17.2.1",
+    "playwright": "^1.55.0",
+    "zod": "^3.25.76"
+  }
+}
