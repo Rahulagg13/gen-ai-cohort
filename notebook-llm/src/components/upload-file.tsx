@@ -45,7 +45,7 @@ const UploadFile = ({
       return res.data;
     },
     onSuccess: (data) => {
-      toast.success(data.message);
+      toast.success("Successfully uploaded!");
       setTimeout(() => {
         setProgress(0);
       }, 200);

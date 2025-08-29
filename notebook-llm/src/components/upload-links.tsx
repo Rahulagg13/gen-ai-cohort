@@ -34,7 +34,7 @@ const UploadLinks = () => {
       toast.error(err.message);
     },
     onSuccess: (data) => {
-      toast.success(data.message);
+      toast.success("Successfully uploaded!");
       const existingMeta = localStorage.getItem("uploadedMeta");
       let source: Source = [];
       if (existingMeta) {

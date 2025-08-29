@@ -112,15 +112,13 @@ const ChatBox = () => {
                 src={currentPerson.profileImage}
                 alt={currentPerson.name}
               />*/}
-              <AvatarFallback className="b font-bold text-lg">H</AvatarFallback>
+              <AvatarFallback className="font-bold text-lg">A</AvatarFallback>
             </Avatar>
             <div className="bg-green-400 border-3 border-white rounded-full w-4 h-4 absolute bottom-0 -right-1 shadow-sm" />
           </div>
 
           <div className="flex flex-col text-neutral-950">
-            <p className="text-xl font-bold">
-              AI Assistent (Persona of Hitesh Sir)
-            </p>
+            <p className="text-xl font-bold">AI Assistent</p>
             <p className=" text-sm font-medium">Online</p>
           </div>
         </CardTitle>
