@@ -3,35 +3,7 @@ import { chromium } from "playwright";
 import type { Page, Browser } from "playwright";
 import * as z from "zod";
 import fs from "node:fs";
-import {
-  Agent,
-  run,
-  tool,
-  OpenAIProvider,
-  setTracingDisabled,
-  setDefaultOpenAIClient,
-  setOpenAIAPI,
-  Runner,
-} from "@openai/agents";
-import OpenAI from "openai";
-
-// const openaiClient = new OpenAI({
-//   apiKey: process.env.GEMINI_API_KEY,
-//   baseURL: process.env.BASE_URL,
-// });
-
-// const modelProvider = new OpenAIProvider({ openAIClient: openaiClient });
-// setDefaultOpenAIClient(openaiClient);
-// setOpenAIAPI("chat_completions"); // Gemini supports chat completions API
-// setTracingDisabled(true);
-
-// import { generateText } from "ai";
-// import { openai } from "@ai-sdk/openai";
-// import { google } from "@ai-sdk/google";
-// import { aisdk } from "@openai/agents-extensions";
-
-// const model = aisdk(openai("gpt-4.1-mini"));
-// const model = aisdk(google("gemini-1.5-flash"));
+import { Agent, run, tool } from "@openai/agents";
 let page: Page;
 let browser: Browser;
 
@@ -117,7 +89,6 @@ const clickElementBySelector = tool({
     selector: z.string(),
   }),
   async execute({ selector }) {
-    // console.log(selector);
     try {
       await page.waitForSelector(selector, {
         state: "visible",
@@ -137,13 +108,12 @@ const clickElementByText = tool({
     text: z.string(),
   }),
   async execute({ text }) {
-    // console.log("text", text);
     try {
-      await page.waitForSelector(`type=${text}`, {
+      await page.waitForSelector(`text=${text}`, {
         state: "visible",
         timeout: 10000,
       });
-      await page.locator(`type=${text}`).click();
+      await page.locator(`text=${text}`).click();
       return "clicked";
     } catch (err) {
       return `failed: could not find ${`text=${text}`}`;
@@ -268,7 +238,6 @@ const main = async (query: string) => {
         - If an action fails, try alternative approaches or ask for clarification
         - Describe what you see in screenshots to help the user understand progress
         - Be decisive - don't retry failed actions multiple times
-        - Complete tasks in under 10 turns
         - Be methodical: plan → execute → verify → continue
         - before submitting any form you have to take the screenshot with the filled form
         - Always close browser when done (You have to striclty follow this rule)
@@ -320,14 +289,8 @@ const main = async (query: string) => {
       clickElementByText,
       getPageSource,
     ],
-    // model: "gemini-2.5-flash",
     model: "gpt-4o-mini",
   });
-
-  // const runner = new Runner({ modelProvider });
-  // const result = await runner.run(websiteAutomationAgent, query, {
-  //   maxTurns: 30,
-  // });
   const result = await run(websiteAutomationAgent, query, {
     maxTurns: 30,
   });
